@@ -9,5 +9,4 @@ class DataManager:
     sheet_request = requests.get(url=SHEETY_GET_URL)
     json_data = sheet_request.json()
 
-    def edit_row(self):
-
+    # def edit_row(self):
