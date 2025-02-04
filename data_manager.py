@@ -6,7 +6,11 @@ SHEETY_PUT_URL = "https://api.sheety.co/789e9c01b29d4ce7279876f9f22b5a3e/flightD
 
 class DataManager:
     #This class is responsible for talking to the Google Sheet.
-    sheet_request = requests.get(url=SHEETY_GET_URL)
-    json_data = sheet_request.json()
+    def __init__(self):
+        self.sheet_request = requests.get(url=SHEETY_GET_URL)
+        self.sheet_data = self.sheet_request.json()["prices"]
 
-    # def edit_row(self):
+    def iata_search(self):
+        if self.sheet_data["iataCode"] == "":
+            pass
+            # TODO: How are you going to update iataCode with a new result?
