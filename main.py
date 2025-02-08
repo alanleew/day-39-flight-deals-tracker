@@ -1,8 +1,15 @@
 # This file will need to use the DataManager,FlightSearch, FlightData, NotificationManager classes to achieve the program requirements.
-from pprint import pprint
-import requests
-from flight_data import FlightData
 from data_manager import DataManager
-
 dm = DataManager()
-pprint(dm.sheet_data)
+
+from flight_search import FlightSearch
+fs= FlightSearch()
+
+sheet_data = dm.get_data()
+
+for row in sheet_data:
+    fs.search(row)
+    dm.update_sheet(row)
+
+# from pprint import pprint
+# pprint(sheet_data)
