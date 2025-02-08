@@ -14,16 +14,22 @@ class FlightSearch:
     #This class is responsible for talking to the Flight Search API.
     def __init__(self):
         self._api_key = os.environ["AMADEUS_API_KEY"]
-
-    token_data = {
-        "grant_type": "client_credentials",
-        "client_id": AMADEUS_API_KEY,
-        "client_secret": AMADEUS_API_SECRET
-    }
-
-    token_request = requests.post(url=AMADEUS_ACCESS_TOKEN_URL, data=token_data)
-    amadeus_access_token = token_request.json()["access_token"]
+        self._token = self.get_new_token()
 
     def search(self, row):
         if row["iataCode"] == "":
             row["iataCode"] = "TESTING"
+
+    def get_new_token(self):
+        header = {
+            "Content-Type": "application/x-www-form-urlencoded"
+        }
+        token_data = {
+            "grant_type": "client_credentials",
+            "client_id": AMADEUS_API_KEY,
+            "client_secret": AMADEUS_API_SECRET
+        }
+
+        token_response = requests.post(url=AMADEUS_ACCESS_TOKEN_URL, headers=header, data=token_data)
+        return token_response.json()["access_token"]
+
